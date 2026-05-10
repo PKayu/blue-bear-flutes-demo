@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Blue Bear Flutes</title>
+  <meta name="description" content="Contact Charlie Mato-Toyela at Blue Bear Flutes. Questions about flutes, orders, custom tuning, or lessons — Charlie answers personally.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-bear">&#x1f43b;</div>
+      Blue Bear Flutes
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <a href="shop.html" class="btn btn-primary nav-cta" style="padding:10px 22px;font-size:0.84rem;">
+      Shop Flutes <span class="btn-arrow">&#8599;</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<nav class="nav-mobile" id="navMobile">
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">Our Story</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="container page-hero-content">
+    <span class="eyebrow">Get in Touch</span>
+    <h1>Talk to Charlie</h1>
+    <p>Questions about flutes, custom tuning, orders, or learning to play — Charlie answers personally. We respond within 24–48 hours.</p>
+  </div>
+</section>
+
+<!-- ── CONTACT SECTION ── -->
+<section>
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Contact Info -->
+      <div class="reveal">
+        <span class="eyebrow">Reach Us</span>
+        <h2 class="section-title">We're Here<br>to Help</h2>
+        <p>Whether you're choosing your first flute, ordering a custom tuning, or have a question about an existing order — we're happy to help. Charlie personally reads and responds to messages.</p>
+
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">&#128222;</div>
+            <div>
+              <div class="contact-item-label">Phone</div>
+              <div class="contact-item-value"><a href="tel:8005189607">(800) 518-9607</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">&#128205;</div>
+            <div>
+              <div class="contact-item-label">Mailing Address</div>
+              <div class="contact-item-value">2932 Ross Clark Circle PMB 250<br>Dothan, AL 36301</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">&#128336;</div>
+            <div>
+              <div class="contact-item-label">Response Time</div>
+              <div class="contact-item-value">24–48 hours (check your spam folder)</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">&#127758;</div>
+            <div>
+              <div class="contact-item-label">Shipping</div>
+              <div class="contact-item-value">Free U.S. shipping &bull; Worldwide delivery available</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div style="margin-top:40px;">
+          <span class="eyebrow" style="display:block;margin-bottom:16px;">Follow Along</span>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="https://youtube.com/bluebearflutes" class="btn btn-outline" target="_blank" style="font-size:0.82rem;padding:10px 18px;">
+              YouTube
+            </a>
+            <a href="https://instagram.com/bluebearflutes" class="btn btn-outline" target="_blank" style="font-size:0.82rem;padding:10px 18px;">
+              Instagram
+            </a>
+            <a href="https://facebook.com/bluebearflutes" class="btn btn-outline" target="_blank" style="font-size:0.82rem;padding:10px 18px;">
+              Facebook
+            </a>
+            <a href="https://www.tiktok.com/@bluebearflutes" class="btn btn-outline" target="_blank" style="font-size:0.82rem;padding:10px 18px;">
+              TikTok
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form reveal reveal-delay-2">
+        <h3>Send a Message</h3>
+        <p class="form-subtitle">We respond to every message within 24–48 hours. For urgent questions, call (800) 518-9607.</p>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first">First Name</label>
+              <input type="text" id="first" placeholder="Your first name" required>
+            </div>
+            <div class="form-group">
+              <label for="last">Last Name</label>
+              <input type="text" id="last" placeholder="Your last name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">What can we help you with?</label>
+            <select id="subject">
+              <option value="">Select a topic...</option>
+              <option>Choosing a flute for a beginner</option>
+              <option>Custom tuning (432Hz / 528Hz)</option>
+              <option>Order status or shipping question</option>
+              <option>Drone flute questions</option>
+              <option>Flute making kits</option>
+              <option>Online lessons or classes</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" placeholder="Tell us what you're looking for or what questions you have..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+            Send Message <span class="btn-arrow">&#8599;</span>
+          </button>
+        </form>
+        <div id="formSuccess" style="display:none;margin-top:24px;padding:20px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);text-align:center;">
+          <div style="font-size:28px;margin-bottom:8px;">&#10003;</div>
+          <div style="font-weight:700;margin-bottom:4px;">Message sent!</div>
+          <div style="font-size:0.9rem;color:var(--text-mid);">We'll respond within 24–48 hours. Check your spam folder if you don't hear back.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ TEASER ── -->
+<section style="background:var(--bg2);">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto 48px;">
+      <span class="eyebrow">Quick Answers</span>
+      <h2 class="section-title">Common Questions</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto;" class="reveal">
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border);">
+        <h3 style="font-size:1rem;margin-bottom:10px;">How long does shipping take?</h3>
+        <p style="font-size:0.9rem;color:var(--text-mid);">Most orders ship within 7–14 business days. Specialty or custom flutes may take a bit longer as they are made to order. U.S. shipping is always free.</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border);">
+        <h3 style="font-size:1rem;margin-bottom:10px;">Can I get my flute in 432Hz or 528Hz?</h3>
+        <p style="font-size:0.9rem;color:var(--text-mid);">Yes — at no extra charge. Just include a note with your order specifying your preferred tuning. All keyed flutes can be tuned to 440Hz, 432Hz, or 528Hz.</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border);">
+        <h3 style="font-size:1rem;margin-bottom:10px;">What flute is best for a complete beginner?</h3>
+        <p style="font-size:0.9rem;color:var(--text-mid);">The Old-Style Eastern Red Cedar 5-Hole Flute or the Modern Series 5-Hole are both excellent starting points. Both are forgiving to learn and rewarding to play. When in doubt, ask Charlie.</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border);">
+        <h3 style="font-size:1rem;margin-bottom:10px;">Do you ship internationally?</h3>
+        <p style="font-size:0.9rem;color:var(--text-mid);">Yes — we ship worldwide at affordable rates. International shipping costs are calculated at checkout based on your location and package size. Every flute is carefully packaged for safe delivery.</p>
+      </div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:36px;">
+      <a href="https://www.bluebearflutes.com/faq" class="btn btn-outline" target="_blank">
+        Full FAQ <span class="btn-arrow">&#8599;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><div class="footer-logo-bear">&#x1f43b;</div>Blue Bear Flutes</div>
+        <p>Handcrafted Native American style flutes, music, and community — since 1988.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html#cedar">Cedar Flutes</a></li>
+          <li><a href="shop.html#drone">Drone Flutes</a></li>
+          <li><a href="shop.html#modern">Modern Series</a></li>
+          <li><a href="shop.html#beginner">Beginner Flutes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://www.bluebearflutes.com/faq" target="_blank">FAQ</a></li>
+          <li><a href="https://www.bluebearflutes.com/shipping" target="_blank">Shipping</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://youtube.com/bluebearflutes" target="_blank">YouTube</a></li>
+          <li><a href="https://instagram.com/bluebearflutes" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com/bluebearflutes" target="_blank">Facebook</a></li>
+          <li><a href="tel:8005189607">(800) 518-9607</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Blue Bear Flutes. Demo site built by your local web design agency.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navMobile.classList.toggle('open');
+  document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
+});
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); navMobile.classList.remove('open'); document.body.style.overflow = '';
+}));
+const observer = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+}), { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function handleSubmit(e) {
+  e.preventDefault();
+  document.querySelector('.contact-form form').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+</script>
+</body>
+</html>
