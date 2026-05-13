@@ -305,7 +305,7 @@ section { padding: 96px 0; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?w=1800&q=80');
+  background-image: url('images/hero-bg.avif');
   background-size: cover;
   background-position: center 30%;
   transform: scale(1.05);
@@ -1035,7 +1035,7 @@ section { padding: 96px 0; }
   content: '';
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?w=1600&q=40') center/cover;
+  background: url('images/lot-of-flutes.avif') center/cover;
   opacity: 0.1;
 }
 .cta-section > * { position: relative; z-index: 2; }
