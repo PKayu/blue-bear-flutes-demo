@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Product — Blue Bear Flutes</title>
+  <meta name="description" id="page-desc" content="Handcrafted Native American style flutes by Charlie Mato-Toyela.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── PRODUCT PAGE SPECIFIC STYLES ── */
+    .breadcrumb {
+      padding: 100px 0 0;
+      background: var(--bg);
+    }
+    .breadcrumb-inner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-light);
+      padding: 16px 0;
+    }
+    .breadcrumb-inner a { color: var(--text-mid); transition: color 0.2s; }
+    .breadcrumb-inner a:hover { color: var(--accent); }
+    .breadcrumb-inner span { color: var(--text-light); }
+
+    /* Product layout */
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      padding: 48px 0 96px;
+    }
+
+    /* Image side */
+    .product-gallery { position: sticky; top: 100px; }
+    .product-main-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg2);
+      box-shadow: 0 16px 64px var(--shadow-lg);
+    }
+    .product-main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-trust-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .trust-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-mid);
+    }
+    .trust-chip-icon { font-size: 14px; }
+
+    /* Info side */
+    .product-info {}
+    .product-category-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+    .product-name {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .product-etsy-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .product-stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 2px; }
+    .product-etsy-label { font-size: 0.82rem; color: var(--text-mid); }
+
+    .product-price-block { margin-bottom: 28px; }
+    .product-price-was { font-size: 0.9rem; color: var(--text-light); text-decoration: line-through; margin-bottom: 4px; }
+    .product-price-now {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .product-price-note { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+
+    .product-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    .product-short-desc {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+
+    /* Option selectors */
+    .option-group { margin-bottom: 24px; }
+    .option-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .option-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .option-chip {
+      padding: 8px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      cursor: pointer;
+      background: #fff;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .option-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .option-chip.selected { border-color: var(--accent); background: var(--accent); color: #fff; }
+
+    /* Qty */
+    .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .qty-label { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+    .qty-control { display: flex; align-items: center; gap: 0; border: 1.5px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; }
+    .qty-btn {
+      width: 38px; height: 38px;
+      background: var(--bg2); border: none;
+      font-size: 1.1rem; cursor: pointer; color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .qty-btn:hover { background: var(--bg3); }
+    .qty-num { width: 44px; text-align: center; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+
+    /* CTA buttons */
+    .product-cta { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .btn-order {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 16px 28px;
+      background: var(--accent); color: #fff;
+      border-radius: var(--radius-xl); border: none;
+      font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 800;
+      letter-spacing: 0.04em; cursor: pointer; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(107,74,42,0.3);
+      transition: all 0.3s;
+    }
+    .btn-order:hover { background: var(--dark2); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(107,74,42,0.4); }
+    .btn-ask {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 28px;
+      background: transparent; color: var(--accent);
+      border-radius: var(--radius-xl); border: 1.5px solid var(--accent);
+      font-family: 'Lato', sans-serif; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-ask:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+
+    .shipping-note {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 18px;
+      background: #f0f7ef; border: 1px solid rgba(74,94,66,0.2);
+      border-radius: var(--radius); font-size: 0.85rem; color: var(--sage);
+      font-weight: 600;
+    }
+
+    /* Details section */
+    .product-details-section {
+      background: var(--bg2);
+      padding: 80px 0;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .details-col h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    .details-col p {
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+    .feature-list { list-style: none; margin-top: 8px; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem; color: var(--text-mid);
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list li::before {
+      content: '✓';
+      color: var(--sage); font-weight: 900; flex-shrink: 0; margin-top: 1px;
+    }
+
+    .specs-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .specs-table tr { border-bottom: 1px solid var(--border); }
+    .specs-table tr:last-child { border-bottom: none; }
+    .specs-table td { padding: 12px 0; font-size: 0.88rem; vertical-align: top; }
+    .specs-table td:first-child {
+      font-weight: 700; color: var(--text); width: 45%;
+      font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .specs-table td:last-child { color: var(--text-mid); }
+
+    /* Tuning section */
+    .tuning-section {
+      background: var(--dark2);
+      padding: 56px 0;
+      text-align: center;
+    }
+    .tuning-section h3 { color: #fff; font-size: 1.6rem; margin-bottom: 12px; }
+    .tuning-section p { color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto 32px; font-size: 0.95rem; line-height: 1.8; }
+    .tuning-chips { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .tuning-chip {
+      padding: 14px 28px;
+      border: 1.5px solid rgba(196,147,58,0.4);
+      border-radius: var(--radius-xl);
+      color: var(--gold-light);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .product-layout { grid-template-columns: 1fr; gap: 40px; }
+      .product-gallery { position: static; }
+      .details-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* 404 state */
+    .not-found { text-align: center; padding: 160px 0 80px; }
+    .not-found h2 { font-size: 2rem; margin-bottom: 16px; }
+    .not-found p { color: var(--text-mid); margin-bottom: 32px; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="Blue Bear Flutes logo" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+      Blue Bear Flutes
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="shop.html" class="btn btn-primary nav-cta" style="padding:10px 22px;font-size:0.84rem;">
+      Shop Flutes <span class="btn-arrow">&#8599;</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<nav class="nav-mobile" id="navMobile">
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">Our Story</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<!-- ── BREADCRUMB ── -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <a href="shop.html">Shop</a>
+      <span>›</span>
+      <span id="breadcrumb-name">Product</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── PRODUCT LAYOUT ── -->
+<section style="padding:0 0 96px;" id="product-section">
+  <div class="container">
+    <div class="product-layout">
+
+      <!-- Image -->
+      <div class="product-gallery reveal">
+        <div class="product-main-img">
+          <img id="prod-img" src="" alt="" loading="eager">
+        </div>
+        <div class="product-trust-row">
+          <div class="trust-chip"><span class="trust-chip-icon">✓</span> Handcrafted in the USA</div>
+          <div class="trust-chip"><span class="trust-chip-icon">🚚</span> Free U.S. Shipping</div>
+          <div class="trust-chip"><span class="trust-chip-icon">★</span> 4.9 Stars on Etsy</div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info reveal reveal-delay-2">
+        <div class="product-category-tag" id="prod-category"></div>
+        <h1 class="product-name" id="prod-name"></h1>
+
+        <div class="product-etsy-row">
+          <div class="product-stars">★★★★★</div>
+          <div class="product-etsy-label">4.9 · 1,000+ Reviews · 4,400+ Sales on Etsy</div>
+        </div>
+
+        <div class="product-price-block">
+          <div class="product-price-was" id="prod-price-orig" style="display:none;"></div>
+          <div class="product-price-now" id="prod-price"></div>
+          <div class="product-price-note" id="prod-price-note"></div>
+        </div>
+
+        <hr class="product-divider">
+
+        <p class="product-short-desc" id="prod-short-desc"></p>
+
+        <!-- Tuning option -->
+        <div class="option-group" id="tuning-group" style="display:none;">
+          <div class="option-label">Tuning Frequency</div>
+          <div class="option-chips">
+            <div class="option-chip selected" onclick="selectChip(this,'tuning')">440 Hz — Standard</div>
+            <div class="option-chip" onclick="selectChip(this,'tuning')">432 Hz — Earth Tone</div>
+            <div class="option-chip" onclick="selectChip(this,'tuning')">528 Hz — Solfeggio</div>
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-light);margin-top:8px;">Tuning is free — just note your preference with your order.</div>
+        </div>
+
+        <!-- Key option -->
+        <div class="option-group" id="key-group" style="display:none;">
+          <div class="option-label">Key</div>
+          <div class="option-chips" id="key-chips"></div>
+        </div>
+
+        <!-- Qty -->
+        <div class="qty-row">
+          <div class="qty-label">Qty</div>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <div class="qty-num" id="qty-display">1</div>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="product-cta">
+          <a id="btn-order" href="#" target="_blank" class="btn-order">
+            Order on Blue Bear Flutes &nbsp;&#8599;
+          </a>
+          <a href="contact.html" class="btn-ask">
+            ✉ Ask Charlie a Question
+          </a>
+        </div>
+
+        <div class="shipping-note">
+          🚚 Free shipping throughout the United States &nbsp;·&nbsp; Ships in 7–14 business days
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── DETAILS SECTION ── -->
+<section class="product-details-section">
+  <div class="container">
+    <div class="details-grid">
+      <div class="details-col reveal">
+        <h3 id="details-heading">About This Flute</h3>
+        <div id="prod-long-desc"></div>
+        <ul class="feature-list" id="prod-features"></ul>
+      </div>
+      <div class="details-col reveal reveal-delay-2">
+        <h3>Specifications</h3>
+        <table class="specs-table" id="prod-specs"></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TUNING INFO ── -->
+<div class="tuning-section" id="tuning-section" style="display:none;">
+  <div class="container">
+    <h3>Custom Tuning at No Extra Cost</h3>
+    <p>All keyed flutes are available in your choice of tuning frequency. Simply include a note with your order — Charlie will tune it personally before it ships.</p>
+    <div class="tuning-chips">
+      <div class="tuning-chip">440 Hz — Concert Standard</div>
+      <div class="tuning-chip">432 Hz — Earth Tone</div>
+      <div class="tuning-chip">528 Hz — Solfeggio / Miracle Tone</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CTA STRIP ── -->
+<section class="cta-section">
+  <div class="container">
+    <span class="eyebrow">Ready to Begin?</span>
+    <h2>Find Your Perfect Flute</h2>
+    <p>Not sure this is the right instrument for you? Browse the full collection or ask Charlie personally — he's helped thousands of players find their voice.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="shop.html" class="btn btn-white">
+        Browse All Flutes <span class="btn-arrow" style="background:var(--accent);color:#fff;">&#8599;</span>
+      </a>
+      <a href="contact.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.5);color:#fff;">
+        Ask Charlie Anything
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="images/logo.png" alt="Blue Bear Flutes logo" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+          Blue Bear Flutes
+        </div>
+        <p>Handcrafted Native American style flutes, music, and community — since 1988. Charlie Mato-Toyela, founder and master maker.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html#cedar">Cedar Flutes</a></li>
+          <li><a href="shop.html#drone">Drone Flutes</a></li>
+          <li><a href="shop.html#modern">Modern Series</a></li>
+          <li><a href="shop.html#beginner">Beginner Flutes</a></li>
+          <li><a href="shop.html#accessories">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="https://www.bluebearflutes.com/beginners" target="_blank">For Beginners</a></li>
+          <li><a href="https://www.bluebearflutes.com/videos" target="_blank">Free Videos</a></li>
+          <li><a href="https://www.bluebearflutes.com/online-classes" target="_blank">Online Classes</a></li>
+          <li><a href="https://www.bluebearflutes.com/flute-making" target="_blank">Flute Making</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://www.bluebearflutes.com/faq" target="_blank">FAQ</a></li>
+          <li><a href="https://www.bluebearflutes.com/shipping" target="_blank">Shipping</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Blue Bear Flutes. Demo site built by your local web design agency.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── PRODUCT DATA ──────────────────────────────────────────────────────────────
+const PRODUCTS = {
+  'old-style-red-cedar': {
+    name: 'Old-Style Eastern Red Cedar 5-Hole Flute',
+    category: 'Beginner Flutes',
+    image: 'images/red-cedar-flute.avif',
+    priceOrig: '$100.00',
+    price: '$69.95',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: "Charlie's classic old-style design — open mouthpiece, warm cedar grain, easy to hold and play from day one. The flute that started thousands of journeys.",
+    longDesc: `<p>The Old-Style Eastern Red Cedar 5-Hole is the flute that launched countless musical journeys. Charlie's open-mouthpiece design makes it immediately playable — no embouchure technique required, just breath and intention.</p><p>Eastern red cedar is Charlie's go-to wood for a reason: its warm, resinous voice carries the authentic soul of the Native American flute tradition. The natural grain patterns mean no two instruments look exactly alike, and the aromatic cedar scent fades naturally over time as the wood settles into its playing life.</p><p>The pentatonic tuning means virtually any combination of notes you play will sound musical — making this the ideal first instrument for players of any background.</p>`,
+    features: ['Open mouthpiece — easiest design to play', 'Hand-shaped eastern red cedar', 'Pentatonic scale — every note combination sounds musical', 'Custom tuning available (440Hz, 432Hz, 528Hz)', 'Comes with free access to Charlie\'s YouTube lesson library', 'Free U.S. shipping, worldwide delivery available'],
+    specs: [['Wood', 'Eastern Red Cedar'], ['Holes', '5-Hole'], ['Design', 'Old-Style / Open Mouthpiece'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Ships In', '7–14 business days'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['Low D', 'Low E', 'Low A', 'Low B', 'F#', 'G', 'A'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/old-style-eastern-red-cedar-5-hole-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'beginner-poplar': {
+    name: 'Beginner 5-Hole Flute — High B (Hardwood Poplar)',
+    category: 'Beginner Flutes',
+    image: 'images/beginner-5-hole-poplar.avif',
+    priceOrig: '$175.00',
+    price: '$110.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'A rich chocolate-brown stained poplar with a natural bear totem. The High B tuning makes it one of the easiest flutes to learn — bright, responsive, and musical from the first breath.',
+    longDesc: `<p>The High B tuning is one of the most forgiving registers for new players — the shorter body length is easier to hold, and the bright, responsive tone gives you instant feedback when you're finding your breath control.</p><p>This flute features a hand-carved bear totem, a nod to Charlie's Lakota name "Blue Bear." The rich chocolate-brown stained hardwood poplar has a smooth, comfortable feel in the hands and produces a warm, clear voice with excellent projection.</p><p>If you've been looking for a first flute that you won't outgrow quickly, this is it — the High B register is a favorite of intermediate players as well.</p>`,
+    features: ['High B tuning — ideal for beginners', 'Natural bear totem hand-carved by Charlie', 'Chocolate-brown stained hardwood poplar', 'Shorter body — easier to hold and finger', 'Bright, responsive tone with excellent projection', 'Free video lessons from Charlie included'],
+    specs: [['Wood', 'Hardwood Poplar'], ['Holes', '5-Hole'], ['Key', 'High B'], ['Totem', 'Natural Bear Totem'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['High B'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/beginner-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'googol-flute': {
+    name: 'Blue Bear "Googol" Flute in G',
+    category: 'Beginner Flutes',
+    image: 'images/mini-flutes.avif',
+    priceOrig: '$89.95',
+    price: '$74.95',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: "A uniquely shaped Blue Bear original — the \"Googol\" is one of Charlie's signature designs. Tuned in G, it plays warm and full with a personality all its own.",
+    longDesc: `<p>The "Googol" is a Blue Bear original design — one of Charlie's signature shapes that you won't find anywhere else. Its distinctive form isn't just aesthetic; the geometry influences the acoustic properties, giving the Googol a slightly different voice than a standard cylindrical flute body.</p><p>Tuned in G, this flute sits in one of the most musical and widely used keys for Native American style flutes. The G register is warm, accessible, and pairs beautifully with guitar, piano, and other instruments.</p><p>Whether you're a beginner drawn to something unique or an experienced player wanting to add a signature instrument to your collection, the Googol delivers.</p>`,
+    features: ['Exclusive Blue Bear "Googol" design', 'G tuning — one of the most versatile keys', 'Unique body shape with distinctive acoustic character', 'Ideal for beginners and experienced players alike', 'Custom tuning options available', 'Comes with free YouTube lesson access'],
+    specs: [['Design', 'Blue Bear Googol — Original Shape'], ['Holes', '5-Hole'], ['Key', 'G'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['G'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/blue-bear-flutes-googol-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'western-cedar': {
+    name: 'Western Cedar Native American Style Flute',
+    category: 'Cedar Flutes',
+    image: 'images/western-cedar-flute.jpg',
+    priceOrig: '$115.00',
+    price: 'From $85.00',
+    priceNote: 'Price varies by key — contact Charlie to confirm',
+    shortDesc: 'Lighter in color with a slightly brighter tone than eastern red cedar. Western cedar flutes have a clarity and depth that sings beautifully in the lower registers.',
+    longDesc: `<p>Western cedar is a lighter, finer-grained wood than its eastern counterpart, and the difference shows in the sound. Where eastern red cedar leans warm and full, western cedar has a brighter clarity — a cutting, singing quality that carries beautifully across open space.</p><p>These flutes are hand-shaped by Charlie using the same process he has refined over 38 years. The pale, golden-tan grain is visually striking, and the wood's natural oils give it a smooth, comfortable feel that improves with play.</p><p>Western cedar flutes are popular with players who perform outdoors or in group settings, where the brighter projection stands out in the mix.</p>`,
+    features: ['Western cedar — brighter, clearer tone than eastern red cedar', 'Hand-shaped and tuned by Charlie', 'Excellent projection — great for outdoor and group playing', 'Available in multiple keys', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Wood', 'Western Cedar'], ['Holes', '5 or 6-Hole (by key)'], ['Finish', 'Natural oil — no varnish'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['Low D', 'Low E', 'F#', 'G', 'A', 'High B'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/handmade-western-cedar-native-american-flutes',
+    detailsHeading: 'About This Flute'
+  },
+  'eastern-red-cedar-full': {
+    name: 'Eastern Red Cedar Flutes — Full Range',
+    category: 'Cedar Flutes',
+    image: 'images/red-cedar-flute.avif',
+    priceOrig: '$185.00',
+    price: 'From $175.00',
+    priceNote: 'Price varies by key and size — contact Charlie to confirm',
+    shortDesc: "Available in Low D (24\"), Low E (23\"), Low A, Low B, and standard registers. Eastern red cedar's warm, resinous voice carries the soul of the Native American flute tradition.",
+    longDesc: `<p>The eastern red cedar flute is the cornerstone of Charlie's work — the wood he returns to again and again because nothing else quite matches its warmth, resonance, and connection to the tradition.</p><p>Eastern red cedar carries a natural resin that gives the bore a characteristic richness. The low-register instruments — especially the 24" Low D — produce a deep, meditative sound that has become synonymous with Native American flute music in ceremony and contemplative practice.</p><p>Each instrument is hand-shaped, drilled, and tuned by Charlie. Available across a wide range of keys, from the massive Low D to standard registers, these are instruments built to last a lifetime.</p>`,
+    features: ['Eastern red cedar — the classic voice of the Native American flute tradition', 'Available in Low D (24"), Low E (23"), Low A, Low B, and standard keys', 'Hand-drilled, shaped, and tuned by Charlie', 'Deep, warm, resinous tone', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Wood', 'Eastern Red Cedar'], ['Holes', '5 or 6-Hole'], ['Range', 'Low D (24") through standard keys'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['Low D (24")', 'Low E (23")', 'Low A', 'Low B', 'F#', 'G', 'A'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/eastern-red-cedar-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'cherry-flute': {
+    name: 'Cherry Old-Style Native American Style Flute',
+    category: 'Cedar Flutes',
+    image: 'images/cherry-flute.avif',
+    priceOrig: null,
+    price: '$125.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'Cherry wood brings a warm reddish tone and a mellow voice. The old-style design keeps the spirit of traditional flute making alive in every note.',
+    longDesc: `<p>Cherry is a hardwood that offers something distinct from cedar — a warmer, slightly denser grain that gives the voice a mellow, rounded quality. Cherry flutes tend to have a softer attack and a longer, more lingering sustain that many players find meditative and expressive.</p><p>The old-style design with an open mouthpiece keeps the instrument true to the traditional form. Cherry's reddish-brown grain darkens beautifully with age, and these flutes become more visually striking the longer they're played.</p><p>For players who want a step beyond cedar without going into the more exotic hardwoods, cherry is a natural and deeply satisfying choice.</p>`,
+    features: ['American cherry — warm, mellow voice with long sustain', 'Old-style open mouthpiece design', 'Reddish-brown grain deepens beautifully with age', 'Slightly denser than cedar — more focused tone', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Wood', 'American Cherry'], ['Holes', '5-Hole'], ['Design', 'Old-Style / Open Mouthpiece'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['F#', 'G', 'A', 'High B'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/cherry-old-style-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'yellowheart': {
+    name: 'African Yellowheart Old-Style Flute',
+    category: 'Exotic Hardwood Flutes',
+    image: 'images/yellowheart-flute.avif',
+    priceOrig: null,
+    price: '$145.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'Brilliant golden-yellow grain with a bright, projecting voice. Yellowheart is dense and resonant — this flute commands attention both visually and musically.',
+    longDesc: `<p>African yellowheart — also called Pau Amarelo — is one of the most visually striking woods in the luthier's palette. Its brilliant, saturated golden-yellow grain is unmistakable, and the density of the wood gives the flute a bright, projecting voice with exceptional clarity.</p><p>Yellowheart flutes have a snappier attack than cedar instruments, making them excellent for melodic playing where note articulation matters. The tone carries well across distance, making these a favorite for performance and outdoor settings.</p><p>Each yellowheart flute is a visual statement as much as a musical one — the grain pattern is unique to every piece of wood, and the color deepens to a rich amber with age.</p>`,
+    features: ['African yellowheart — brilliant golden grain, unique to each piece', 'Dense hardwood — bright, projecting tone with clear articulation', 'Excellent for performance and outdoor playing', 'Old-style open mouthpiece design', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Wood', 'African Yellowheart (Pau Amarelo)'], ['Holes', '5-Hole'], ['Design', 'Old-Style / Open Mouthpiece'], ['Tone Character', 'Bright, projecting, clear articulation'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['F#', 'G', 'A'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/african-yellowheart-old-style-5-hole-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'purpleheart': {
+    name: 'Old-Style Purpleheart Native American Flute',
+    category: 'Exotic Hardwood Flutes',
+    image: 'images/purpleheart-flute.avif',
+    priceOrig: null,
+    price: '$145.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: "One of the most striking woods in nature — deep violet-purple grain with a clear, bell-like tone. Purpleheart is as unforgettable to hear as it is to hold.",
+    longDesc: `<p>Purpleheart is one of those woods that stops people in their tracks. The deep violet-purple color is completely natural — a result of the wood's chemical composition reacting with light and air. Fresh-cut purpleheart is a vivid violet; as it ages with UV exposure, it deepens to a rich, dark plum.</p><p>The density of purpleheart gives the flute a bell-like, clear tone with impressive sustain. The voice is focused and precise — each note has a defined center that resonates cleanly without muddiness.</p><p>If you're looking for a flute that's as much a conversation piece as a musical instrument, purpleheart delivers on every level.</p>`,
+    features: ['Purpleheart — stunning deep violet-purple grain, entirely natural', 'Dense hardwood — clear, bell-like tone with excellent sustain', 'Color deepens to rich plum with age and UV exposure', 'Old-style open mouthpiece design', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Wood', 'Purpleheart (Peltogyne)'], ['Holes', '5-Hole'], ['Design', 'Old-Style / Open Mouthpiece'], ['Tone Character', 'Clear, bell-like, focused'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['F#', 'G', 'A'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/old-style-purpleheart-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'padauk': {
+    name: 'Old-Style Padauk Native American Flute',
+    category: 'Exotic Hardwood Flutes',
+    image: 'images/padauk-flute.avif',
+    priceOrig: null,
+    price: '$175.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'Deep orange-red African padauk with a warm, rich resonance. Dense grain means excellent projection — this flute fills a room with ease.',
+    longDesc: `<p>African padauk is renowned among woodworkers and instrument makers for its exceptional stability, fine grain, and the brilliant orange-red color that makes it immediately recognizable. Over time and with light exposure, padauk deepens to a rich reddish-brown — a natural aging process that many players find adds character.</p><p>Acoustically, padauk delivers warm, rich resonance with strong projection. The density of the wood gives each note a solid, full-bodied quality that carries well. Padauk flutes have a slightly warmer character than yellowheart but retain the clarity and projection of exotic hardwoods.</p><p>At $175, this is one of Charlie's premium handcrafted instruments — the quality of both the material and the craftsmanship is evident from the first note.</p>`,
+    features: ['African padauk — brilliant orange-red grain, deepens with age', 'Dense, stable hardwood — warm, rich resonance with strong projection', 'Full-bodied tone that carries across large spaces', 'Old-style open mouthpiece design', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Wood', 'African Padauk'], ['Holes', '5-Hole'], ['Design', 'Old-Style / Open Mouthpiece'], ['Tone Character', 'Warm, rich, full-bodied projection'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['F#', 'G', 'A'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/old-style-padauk-native-american-style-flute',
+    detailsHeading: 'About This Flute'
+  },
+  'red-cedar-drone': {
+    name: 'Eastern Red Cedar Drone Flutes',
+    category: 'Drone Flutes',
+    image: 'images/drone-flute.avif',
+    priceOrig: null,
+    price: 'From $250.00',
+    priceNote: 'Price varies by key — contact Charlie to confirm',
+    shortDesc: 'Two chambers: one for melody, one for a sustained harmonic drone. The result is a full, meditative soundscape that no single-chamber flute can replicate.',
+    longDesc: `<p>A drone flute is a Native American style flute with two parallel chambers — one plays your melody while the other sustains a constant harmonic drone beneath every note. The effect is unlike anything a single-chamber flute can produce: a rich, layered sound that fills the room and creates an immediate sense of depth and presence.</p><p>Charlie builds his drone flutes from eastern red cedar — the same warm, resonant wood that anchors his single-chamber lineup. The two chambers are tuned to a specific harmonic interval, typically a fourth or fifth apart, giving every melodic phrase a harmonic foundation.</p><p>Drone flutes are popular for meditation, ceremony, healing work, and performance. Once you hear the sound, you understand why.</p>`,
+    features: ['Two chambers — melody + sustained harmonic drone', 'Eastern red cedar — warm, resonant tone', 'Tuned harmonic interval (4th or 5th)', 'Ideal for meditation, ceremony, and performance', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Type', 'Drone Flute — Dual Chamber'], ['Wood', 'Eastern Red Cedar'], ['Chambers', '2 (Melody + Drone)'], ['Interval', '4th or 5th (varies by model)'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['Low D', 'Low E', 'F#', 'G', 'A'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/eastern-red-cedar-native-american-style-drone-flutes',
+    detailsHeading: 'About This Drone Flute'
+  },
+  'backpacker-drone': {
+    name: 'Small Native American Style Backpacker Drone',
+    category: 'Drone Flutes',
+    image: 'images/backpacker-drone.avif',
+    priceOrig: null,
+    price: '$200.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'All the harmonic depth of a full drone flute in a travel-ready size. Take this one into the mountains, on the trail, or anywhere the music calls you.',
+    longDesc: `<p>The Backpacker Drone is Charlie's answer to a common request: all the richness of a drone flute in a body small enough to fit in a daypack. The shorter length makes it easy to carry on hikes, camping trips, or any journey — without sacrificing the dual-chamber harmonic depth that makes drone flutes so distinctive.</p><p>The higher register of the backpacker size gives it a slightly brighter voice than the full-sized cedar drone — more presence, equally beautiful. This is the flute you reach for when you want to play by a mountain stream or under open sky.</p><p>A unique instrument at an accessible price point — one of Charlie's most popular special-use designs.</p>`,
+    features: ['Compact "backpacker" size — fits in a daypack', 'Full dual-chamber drone design', 'Higher register — bright, clear, carries outdoors', 'Perfect for travel, hiking, and outdoor playing', 'Custom tuning available', 'Free U.S. shipping'],
+    specs: [['Type', 'Drone Flute — Compact / Backpacker'], ['Chambers', '2 (Melody + Drone)'], ['Size', 'Compact — travel-ready'], ['Best For', 'Outdoor playing, travel, portability'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['F#', 'G', 'A', 'High B'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/small-native-american-drone-flutes',
+    detailsHeading: 'About This Drone Flute'
+  },
+  'aztec-drone': {
+    name: 'Aztec, Mayan or Olmec Temple Drone Flutes',
+    category: 'Drone Flutes',
+    image: 'images/aztec-drone-flute.avif',
+    priceOrig: null,
+    price: 'From $170.00',
+    priceNote: 'Price varies by design — contact Charlie to confirm',
+    shortDesc: 'Ceremonial-inspired drone flutes built to evoke ancient Mesoamerican soundscapes. A truly unique instrument for players drawn to deep history and rare tones.',
+    longDesc: `<p>The Temple Drone series draws from the ancient musical traditions of Mesoamerica — the Aztec, Mayan, and Olmec civilizations each had rich ceremonial musical cultures, and these flutes are Charlie's tribute to those traditions.</p><p>These are dual-chamber drone flutes built with unique body shapes and proportions inspired by pre-Columbian instrument design. The result is a sound unlike any standard drone flute — more ancient in character, with overtones and resonances that seem to come from another time.</p><p>If you're drawn to ceremony, deep history, or simply want an instrument that no one else in the room has ever seen or heard before, the Temple Drone series is in a category of its own.</p>`,
+    features: ['Inspired by Aztec, Mayan, and Olmec flute traditions', 'Dual-chamber drone design', 'Unique body proportions — distinctive ancient character', 'Special edition — limited availability', 'Custom tuning available', 'Free U.S. shipping'],
+    specs: [['Type', 'Drone Flute — Special / Temple Series'], ['Inspired By', 'Aztec, Mayan & Olmec traditions'], ['Chambers', '2 (Melody + Drone)'], ['Availability', 'Limited — contact Charlie for current stock'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: true,
+    keys: ['Varies — contact Charlie'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/special-native-american-4th-and-5th-drone-flutes',
+    detailsHeading: 'About This Drone Flute'
+  },
+  'modern-5-hole': {
+    name: 'Blue Bear Modern Series 5-Hole Flute',
+    category: 'Modern Series',
+    image: 'images/modern-series-flute.avif',
+    priceOrig: '$70.00',
+    price: 'From $55.00',
+    priceNote: 'Price varies by key — free U.S. shipping included',
+    shortDesc: "The classic Blue Bear 5-hole design in precision-printed form. Available with totems. Great for players who want consistency and durability without sacrificing Charlie's acoustic signature.",
+    longDesc: `<p>The Modern Series brings Charlie's 38 years of acoustic design into the world of precision 3D printing. The result is an instrument that plays exactly like a Blue Bear flute should — same pentatonic tuning, same bore geometry, same approachability — but with manufacturing precision that produces highly consistent results every time.</p><p>Modern Series flutes are made from a food-safe, durable material that's impervious to humidity changes. Unlike wood, they won't crack, warp, or require oiling. This makes them particularly well-suited for players in humid or dry climates, or for anyone who wants a reliable instrument for daily practice.</p><p>Available with optional totem designs. At this price point, the Modern Series is the most accessible gateway into the Blue Bear sound.</p>`,
+    features: ['Precision 3D-printed — consistent playability every time', "Charlie's exact bore geometry and acoustic design", 'Humidity-resistant — won\'t crack or warp', 'Available with optional totem designs', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Type', 'Modern Series — 3D Printed'], ['Holes', '5-Hole'], ['Material', 'Food-safe, durable composite'], ['Maintenance', 'Humidity-resistant — no oiling required'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Designed by Charlie']],
+    tuning: true,
+    keys: ['Low D', 'Low E', 'F#', 'G', 'A', 'High B'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/modern-series-5-hole-native-american-style-flute',
+    detailsHeading: 'About the Modern Series'
+  },
+  'modern-drone': {
+    name: 'Blue Bear Modern Series Drone Flute',
+    category: 'Modern Series',
+    image: 'images/modern-series-drone-flute.avif',
+    priceOrig: '$85.00',
+    price: 'From $75.00',
+    priceNote: 'Price varies by key — free U.S. shipping included',
+    shortDesc: "Drone flute dual-chamber design in precision-printed form. Same harmonic depth as the handcrafted versions, at a more accessible price point with a turtle totem option.",
+    longDesc: `<p>The Modern Series Drone brings the full dual-chamber drone experience to Charlie's precision-printed line. The acoustic design is identical to the handcrafted eastern red cedar drone flutes — same bore geometry, same harmonic intervals — just executed in a consistent, durable composite material.</p><p>For players who want to explore the world of drone flutes before committing to a handcrafted cedar instrument, this is the perfect entry point. At this price, there's no reason not to experience what a drone flute can add to your music.</p><p>Available with a turtle totem design — a symbol of patience, wisdom, and the long journey. An appropriate companion for this kind of musical exploration.</p>`,
+    features: ['Full dual-chamber drone design', 'Precision 3D-printed — consistent, durable', 'Available with turtle totem design', 'Humidity-resistant material — low maintenance', 'Custom tuning (440Hz, 432Hz, 528Hz)', 'Free U.S. shipping'],
+    specs: [['Type', 'Modern Series Drone — 3D Printed'], ['Chambers', '2 (Melody + Drone)'], ['Material', 'Food-safe, durable composite'], ['Totem', 'Turtle totem option available'], ['Tuning', '440Hz standard (432Hz & 528Hz available)'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Designed by Charlie']],
+    tuning: true,
+    keys: ['F#', 'G', 'A', 'High B'],
+    buyUrl: 'https://www.bluebearflutes.com/product-page/modern-series-native-american-style-drone-flute',
+    detailsHeading: 'About the Modern Series Drone'
+  },
+  'cedar-kit': {
+    name: 'Western Cedar Flute Making Kit',
+    category: 'Modern Series',
+    image: 'images/western-cedar-flute.jpg',
+    priceOrig: null,
+    price: 'From $40.00',
+    priceNote: 'Price varies by kit level — contact Charlie for details',
+    shortDesc: "Learn the art of flute making from the ground up. Charlie's kit includes everything you need to shape, tune, and finish your own Native American style flute from raw cedar.",
+    longDesc: `<p>Charlie has been teaching flute making for nearly as long as he's been making flutes. The Western Cedar Flute Making Kit distills that teaching into a package you can work through at home, at your own pace.</p><p>The kit includes pre-cut western cedar blanks, a detailed instruction guide, and the essential tools needed to shape, drill, and tune your instrument. The process takes patience — but the result is a flute you made with your own hands, tuned and playable.</p><p>Charlie also offers his book <em>The Art of Native American Flute Making</em> as a companion volume. Together, they provide a complete education in the craft.</p>`,
+    features: ['Pre-cut western cedar blanks included', 'Step-by-step instruction guide by Charlie', 'Essential shaping and drilling tools', 'Produces a fully playable, tuned instrument', 'Pairs with Charlie\'s book on flute making', 'A complete introduction to the craft'],
+    specs: [['Wood', 'Western Cedar (pre-cut blanks)'], ['Skill Level', 'Beginner-friendly with guidance'], ['Includes', 'Cedar blanks, tools, instructions'], ['Result', 'A fully playable tuned flute'], ['Companion', 'The Art of Native American Flute Making (book)'], ['Shipping', 'Free U.S. · International available']],
+    tuning: false,
+    keys: null,
+    buyUrl: 'https://www.bluebearflutes.com/product-page/western-cedar-native-american-flute-making-kit',
+    detailsHeading: 'About This Kit'
+  },
+  'flute-bag': {
+    name: 'The Ultimate Native American Flute Bag',
+    category: 'Accessories & More',
+    image: 'images/flute-bag.avif',
+    priceOrig: null,
+    price: '$79.95',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'Shoulder strap, padded protection, multiple compartments — built to carry your flutes on the road, in the woods, or to every jam session.',
+    longDesc: `<p>The Ultimate Flute Bag was designed by someone who actually carries flutes — multiple compartments sized for instruments of different lengths, padded dividers to prevent contact damage, and a durable shoulder strap that sits comfortably for extended carries.</p><p>Whether you're heading to a session, a ceremony, a trail, or a teaching, this bag makes transporting your instruments easy and safe. It holds multiple flutes simultaneously, with room for accessories.</p><p>A proper bag is one of the most practical investments a flute player can make — and this one was designed specifically for Native American style flutes.</p>`,
+    features: ['Multiple padded compartments — holds several flutes', 'Padded dividers to prevent instrument contact', 'Comfortable shoulder strap for extended carry', 'Durable, travel-ready construction', 'Sized for Native American style flutes', 'Free U.S. shipping'],
+    specs: [['Type', 'Instrument Bag / Carrying Case'], ['Compartments', 'Multiple padded sections'], ['Strap', 'Adjustable shoulder strap'], ['Best For', 'Transport, travel, performances'], ['Shipping', 'Free U.S. · International available'], ['Made For', 'Native American Style Flutes']],
+    tuning: false,
+    keys: null,
+    buyUrl: 'https://www.bluebearflutes.com/product-page/flute-bags',
+    detailsHeading: 'About This Bag'
+  },
+  'eagle-call': {
+    name: 'Small Cedar Eagle / Hawk Call',
+    category: 'Accessories & More',
+    image: 'images/eagle-whistle.avif',
+    priceOrig: null,
+    price: '$49.95',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: 'Handcrafted cedar whistle that produces authentic eagle and hawk sounds. A remarkable instrument for ceremony, performance, or nature observation.',
+    longDesc: `<p>The Cedar Eagle/Hawk Call is handcrafted from the same cedar Charlie uses for his flutes — and the same attention to acoustic precision goes into each one. The call produces the sharp, piercing cry of an eagle or hawk with remarkable authenticity.</p><p>Eagle calls hold deep significance in many Native American traditions — a connection to the sky, to vision, and to the spirit world. Used in ceremony, they serve as both sound and symbol.</p><p>Performers use them to add unexpected texture and drama to musical sets. Nature observers use them in the field. Whatever your purpose, this is a beautifully crafted instrument with a distinctive voice.</p>`,
+    features: ['Hand-shaped cedar — same quality as the flutes', 'Produces authentic eagle and hawk calls', 'Used in ceremony, performance, and nature observation', 'Compact and portable', 'Deep connection to Native American traditions', 'Free U.S. shipping'],
+    specs: [['Type', 'Bird Call / Whistle'], ['Wood', 'Cedar'], ['Sound', 'Eagle and hawk calls'], ['Uses', 'Ceremony, performance, nature observation'], ['Size', 'Small / portable'], ['Shipping', 'Free U.S. · International available'], ['Made In', 'USA — Handcrafted by Charlie']],
+    tuning: false,
+    keys: null,
+    buyUrl: 'https://www.bluebearflutes.com/product-page/cedar-eagle-hawk-call',
+    detailsHeading: 'About This Instrument'
+  },
+  'bear-fat': {
+    name: 'Imitation Bear Fat — All-Natural Flute Care Wax',
+    category: 'Accessories & More',
+    image: 'images/bear-fat-wax.avif',
+    priceOrig: null,
+    price: '$25.00',
+    priceNote: 'Free U.S. shipping included',
+    shortDesc: "Traditional all-natural flute care wax. Protects and conditions the wood, maintains the bore, and keeps your flute playing its best for decades.",
+    longDesc: `<p>Historically, Native American flute makers conditioned their instruments with bear fat — a natural oil-rich substance that penetrates wood grain, protects the bore, and preserves the tonal quality of the instrument over time. Charlie's Imitation Bear Fat is a modern, all-natural formulation that replicates the same effect without animal fat.</p><p>Applied to the bore of your flute every few months (or whenever you notice the wood drying), it keeps the internal surface smooth and stable — preventing cracking, maintaining consistent acoustic properties, and extending the life of your instrument.</p><p>A small amount goes a long way. One jar will care for your flutes for years. It's the simplest thing you can do to protect a handcrafted instrument.</p>`,
+    features: ['All-natural formulation — no animal products', 'Conditions and protects the bore and exterior', 'Prevents wood cracking and drying', 'Maintains consistent acoustic properties over time', 'One jar lasts years of regular use', 'Free U.S. shipping'],
+    specs: [['Type', 'Wood Conditioning Wax'], ['Formula', 'All-natural — no animal products'], ['Apply To', 'Bore, exterior, and joints'], ['Frequency', 'Every few months, or as needed'], ['Longevity', 'One jar = years of use'], ['Shipping', 'Free U.S. · International available']],
+    tuning: false,
+    keys: null,
+    buyUrl: 'https://www.bluebearflutes.com/product-page/imitation-bear-fat-flute-care-wax',
+    detailsHeading: 'About This Product'
+  }
+};
+
+// ── PAGE LOGIC ────────────────────────────────────────────────────────────────
+let qty = 1;
+
+function changeQty(delta) {
+  qty = Math.max(1, Math.min(10, qty + delta));
+  document.getElementById('qty-display').textContent = qty;
+}
+
+function selectChip(el, group) {
+  el.closest('.option-chips').querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function setEl(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+function setHTML(id, val) { const el = document.getElementById(id); if (el) el.innerHTML = val; }
+
+function loadProduct() {
+  const params = new URLSearchParams(window.location.search);
+  const id     = params.get('id');
+  const p      = PRODUCTS[id];
+
+  if (!p) {
+    document.getElementById('product-section').innerHTML = `
+      <div class="container"><div class="not-found">
+        <h2>Product Not Found</h2>
+        <p>We couldn't find that product. Browse our full collection below.</p>
+        <a href="shop.html" class="btn btn-primary">Browse All Flutes <span class="btn-arrow">&#8599;</span></a>
+      </div></div>`;
+    return;
+  }
+
+  // Meta
+  document.getElementById('page-title').textContent = `${p.name} — Blue Bear Flutes`;
+  document.getElementById('page-desc').content = p.shortDesc;
+
+  // Breadcrumb
+  document.getElementById('breadcrumb-name').textContent = p.name;
+
+  // Image
+  const img = document.getElementById('prod-img');
+  img.src = p.image; img.alt = p.name;
+
+  // Info
+  setEl('prod-category', p.category);
+  setEl('prod-name', p.name);
+
+  const priceOrig = document.getElementById('prod-price-orig');
+  if (p.priceOrig) { priceOrig.style.display = 'block'; priceOrig.textContent = `Was ${p.priceOrig}`; }
+  setEl('prod-price', p.price);
+  setEl('prod-price-note', p.priceNote || '');
+  setEl('prod-short-desc', p.shortDesc);
+
+  // Tuning
+  if (p.tuning) {
+    document.getElementById('tuning-group').style.display = 'block';
+    document.getElementById('tuning-section').style.display = 'block';
+  }
+
+  // Keys
+  if (p.keys && p.keys.length > 0) {
+    const keyGroup = document.getElementById('key-group');
+    keyGroup.style.display = 'block';
+    const chips = document.getElementById('key-chips');
+    chips.innerHTML = p.keys.map((k, i) =>
+      `<div class="option-chip${i===0?' selected':''}" onclick="selectChip(this,'key')">${k}</div>`
+    ).join('');
+  }
+
+  // Order button
+  document.getElementById('btn-order').href = p.buyUrl;
+
+  // Details
+  document.getElementById('details-heading').textContent = p.detailsHeading || 'About This Product';
+  setHTML('prod-long-desc', p.longDesc);
+
+  const featureList = document.getElementById('prod-features');
+  featureList.innerHTML = p.features.map(f => `<li>${f}</li>`).join('');
+
+  const specsTable = document.getElementById('prod-specs');
+  specsTable.innerHTML = p.specs.map(([label, val]) =>
+    `<tr><td>${label}</td><td>${val}</td></tr>`
+  ).join('');
+}
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navMobile  = document.getElementById('navMobile');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navMobile.classList.toggle('open');
+  document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
+});
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open'); navMobile.classList.remove('open'); document.body.style.overflow = '';
+}));
+
+// Reveal
+const observer = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+}), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Load on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', loadProduct);
+</script>
+</body>
+</html>
