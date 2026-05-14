@@ -1168,7 +1168,7 @@ footer {
   .values-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; }
   .about-img-accent { display: none; }
-  .about-badge { right: 16px; }
+  .about-badge { top: auto; bottom: 16px; right: 16px; }
   .story-split { grid-template-columns: 1fr; gap: 40px; }
   .contact-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
